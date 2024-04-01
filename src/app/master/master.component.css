@@ -1,0 +1,112 @@
+main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+nav {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 12px 0px;
+  z-index: 1;
+  padding: 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(4, 90, 119);
+  background: rgb(4, 90, 119);
+  background: linear-gradient(
+    90deg,
+    rgba(4, 90, 119, 1) 39%,
+    rgba(48, 137, 167, 1) 77%,
+    rgba(71, 167, 199, 1) 89%,
+    rgba(108, 214, 250, 1) 100%
+  );
+  color: #fff;
+  height: 10vh;
+}
+.nav_left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.nav_left h1 {
+  font-size: 26px;
+  color: #fff;
+}
+.trigger {
+  font-size: 24px;
+  cursor: pointer;
+  margin-top: 2px;
+}
+.nav_right {
+  display: flex;
+  align-items: center;
+}
+.ant-avatar-lg.ant-avatar-icon {
+  font-size: 20px;
+}
+/* /////////////////////////////////// */
+.ant-layout.ant-layout-has-sider {
+  flex-direction: row;
+  height: 90vh;
+}
+.ant-layout-sider {
+  background: #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 12px 0px;
+  position: relative;
+  /* border: 1px solid red; */
+}
+.ant-layout-sider .logout {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  /* border: 1px solid red; */
+  padding: 10px 15px;
+}
+.ant-layout-sider .logout li {
+  background: #04344a;
+  color: #fff;
+  text-align: center;
+  padding-left: 18px !important;
+}
+.ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
+  padding: 10px 0;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #00000015;
+}
+.ant-menu-item-selected {
+  color: var(--secondary-color);
+}
+.ant-menu-vertical .ant-menu-item::after,
+.ant-menu-vertical-left .ant-menu-item::after,
+.ant-menu-vertical-right .ant-menu-item::after,
+.ant-menu-inline .ant-menu-item::after {
+  border-right: 4px solid var(--secondary-color);
+}
+::ng-deep.ant-menu-light .ant-menu-item:hover,
+::ng-deep.ant-menu-light .ant-menu-item-active,
+::ng-deep.ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+::ng-deep.ant-menu-light .ant-menu-submenu-active,
+::ng-deep.ant-menu-light .ant-menu-submenu-title:hover {
+  color: var(--secondary-color);
+  /* font-weight: 600; */
+}
+/* ////// */
+.ant-layout.ant-layout-has-sider > .ant-layout,
+.ant-layout.ant-layout-has-sider > .ant-layout-content {
+  width: 0;
+  max-height: 90vh;
+  overflow-y: hidden;
+}
+nz-content {
+  padding: 18px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  min-height: 84vh;
+}

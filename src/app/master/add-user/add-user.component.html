@@ -1,0 +1,653 @@
+<section>
+  <nz-page-header>
+    <!-- -----------Header------------- -->
+    <nz-page-header-title>USER</nz-page-header-title>
+    <nz-page-header-tags>
+      <nz-tag nzColor="blue">{{ existingUserData?.length }}</nz-tag>
+    </nz-page-header-tags>
+    <nz-page-header-extra>
+      <nz-space>
+        <nz-input-group *nzSpaceItem [nzSuffix]="suffixIconSearch">
+          <input
+            type="text"
+            nz-input
+            placeholder="Search"
+            [(ngModel)]="searchKeyword"
+          />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <span nz-icon nzType="search"></span>
+        </ng-template>
+        <div *nzSpaceItem>
+          <button
+            *ngIf="!activeEditItem"
+            style="min-width: 120px"
+            nz-button
+            (click)="activeUserSection()"
+          >
+            <span *ngIf="!activeAddItem">Add User</span>
+            <span *ngIf="activeAddItem">Cancel</span>
+          </button>
+          <!-- <button
+            *ngIf="activeEditItem"
+            style="min-width: 120px"
+            nz-button
+            (click)="cancelEdit()"
+          >
+            <span>Cancel</span>
+          </button> -->
+        </div>
+      </nz-space>
+    </nz-page-header-extra>
+    <!-- -----------Add Form------------- -->
+    <!--   *ngIf="
+        activeAddItem || (existingUserData && existingUserData.length <= 0)
+      " -->
+    <nz-page-header-content
+      *ngIf="
+        activeAddItem || (existingUserData && existingUserData.length <= 0)
+      "
+    >
+      <nz-card>
+        <form
+          nz-form
+          [formGroup]="informationForm"
+          (ngSubmit)="submitForm()"
+          [nzLayout]="informationForm.controls.formLayout.value"
+          class="login-form"
+        >
+          <nz-page-header-title>Information</nz-page-header-title>
+          <div class="add_section" style="margin-top: 18px">
+            <nz-form-item class="add_section_inputs">
+              <nz-form-label>First Name :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="Please input your firstname!"
+              >
+                <nz-input-group>
+                  <input
+                    type="text"
+                    nz-input
+                    formControlName="firstName"
+                    placeholder="Fist name"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="add_section_inputs">
+              <nz-form-label>Last Name :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="Please input your lastname!"
+              >
+                <nz-input-group>
+                  <input
+                    type="text"
+                    nz-input
+                    formControlName="lastName"
+                    placeholder="Last name"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="add_section_inputs">
+              <nz-form-label>User Name :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzValidatingTip="Validating..."
+                [nzErrorTip]="userErrorTpl"
+              >
+                <nz-input-group>
+                  <input
+                    type="text"
+                    nz-input
+                    formControlName="userName"
+                    placeholder="User name"
+                  />
+                </nz-input-group>
+                <ng-template #userErrorTpl let-control>
+                  @if (control.errors?.['required']) { Please input your
+                  username! } @if (control.errors?.['duplicated']) { The
+                  username is redundant! }
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="add_section_inputs">
+              <nz-form-label>Password :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="Password should be at least 8 characters"
+              >
+                <nz-input-group>
+                  <input
+                    minlength="8"
+                    type="password"
+                    nz-input
+                    formControlName="password"
+                    placeholder="Password"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="add_section_inputs">
+              <nz-form-label>E-mail :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzValidatingTip="Validating..."
+                [nzErrorTip]="emailErrorTpl"
+              >
+                <nz-input-group>
+                  <input
+                    nz-input
+                    formControlName="email"
+                    placeholder="E-mail"
+                    type="email"
+                  />
+                </nz-input-group>
+                <ng-template #emailErrorTpl let-control>
+                  @if (control.errors?.['email']) { The input is not valid
+                  E-mail! } @if (control.errors?.['required']) { Please input
+                  your E-mail! } @if (control.errors?.['duplicated']) { The
+                  E-mail is redundant! }
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="add_section_inputs">
+              <nz-form-label>Company Name :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="Please input your company name!"
+              >
+                <nz-input-group>
+                  <input
+                    nz-input
+                    formControlName="companyName"
+                    placeholder="Company name"
+                    type="text"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item style="width: calc(100% - 15px)">
+              <nz-form-label>Address :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="Please input your address!"
+              >
+                <nz-input-group>
+                  <input
+                    nz-input
+                    formControlName="address"
+                    placeholder="Address"
+                    type="text"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </form>
+
+        <form
+          nz-form
+          [formGroup]="businessForm"
+          (ngSubmit)="submitBusinessForm()"
+          [nzLayout]="businessForm.controls.formLayout.value"
+          class="login-form"
+        >
+          <div>
+            <nz-page-header-title>Business </nz-page-header-title>
+            @for (name of businessNameArray; track name) {
+            <nz-page-header-title>[{{ name }}]</nz-page-header-title> }
+          </div>
+
+          <div class="add_section" style="margin-top: 18px">
+            <nz-form-item class="add_section_inputs">
+              <nz-form-label>Business :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzValidatingTip="Validating..."
+                [nzErrorTip]="businessErrorTpl"
+              >
+                <nz-select
+                  formControlName="businessId"
+                  nzPlaceHolder="Select business"
+                >
+                  <nz-option
+                    *ngFor="let list of businessList"
+                    [nzValue]="list.id"
+                    [nzLabel]="list.name"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+              <ng-template #businessErrorTpl let-control>
+                @if (control.errors?.['required']) { Please select business! }
+                @if (control.errors?.['duplicated']) { The business is
+                redundant! }
+              </ng-template>
+            </nz-form-item>
+
+            <nz-form-item class="add_section_inputs">
+              <nz-form-label>OneTime Commission :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="Please input your OneTime commission!"
+              >
+                <nz-input-group>
+                  <input
+                    nz-input
+                    formControlName="oneTimeCommission"
+                    placeholder="OneTime commission"
+                    type="number"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="add_section_inputs">
+              <nz-form-label>Residual Percent :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="Please input your Residual percent!"
+              >
+                <nz-input-group>
+                  <input
+                    nz-input
+                    formControlName="residualPercent"
+                    placeholder="Residual percent"
+                    type="number"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="add_section_inputs">
+              <nz-form-label>Short Code App :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="Please input your Shortcode app!"
+              >
+                <nz-input-group>
+                  <input
+                    nz-input
+                    formControlName="shortCodeApp"
+                    placeholder="Short code app"
+                    type="text"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="add_section_inputs">
+              <nz-form-label>Short Code Terminal :</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="Please input your Shortcode terminal!"
+              >
+                <nz-input-group>
+                  <input
+                    nz-input
+                    formControlName="shortCodeTerminal"
+                    placeholder="Short code terminal"
+                    type="text"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+
+            <button class="add_section_inputs add_business_button">
+              <span nz-icon nzType="plus" nzTheme="outline"></span>Add Business
+            </button>
+          </div>
+        </form>
+
+        <button
+          style="width: 100%"
+          nz-button
+          class="login-form-button login-form-margin"
+          [nzType]="'primary'"
+          (click)="submitForm()"
+        >
+          <span>Submit</span>
+          <ng-template #indicatorTemplate
+            ><span nz-icon nzType="loading"></span
+          ></ng-template>
+          <nz-spin
+            *ngIf="spinner"
+            nzSimple
+            [nzIndicator]="indicatorTemplate"
+          ></nz-spin>
+        </button>
+      </nz-card>
+    </nz-page-header-content>
+    <!-- -----------Update Form------------- -->
+    <nz-page-header-content *ngIf="activeEditItem">
+      <form
+        nz-form
+        [formGroup]="editForm"
+        [nzLayout]="editForm.controls.formLayout.value"
+        (ngSubmit)="updateForm()"
+        class="login-form"
+      >
+        <nz-card class="add_section">
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>First Name :</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzErrorTip="Please input your firstname!"
+            >
+              <nz-input-group>
+                <input
+                  type="text"
+                  nz-input
+                  formControlName="firstName"
+                  placeholder="Fist name"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>Last Name :</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzErrorTip="Please input your lastname!"
+            >
+              <nz-input-group>
+                <input
+                  type="text"
+                  nz-input
+                  formControlName="lastName"
+                  placeholder="Last name"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>User Name :</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzValidatingTip="Validating..."
+              [nzErrorTip]="userErrorTpl"
+            >
+              <nz-input-group>
+                <input
+                  nz-input
+                  type="text"
+                  [value]="this.editForm.get('userName')?.value"
+                  [disabled]="true"
+                />
+                <!-- <input
+                  type="text"
+                  nz-input
+                  formControlName="userName"
+                  placeholder="User name"
+                /> -->
+              </nz-input-group>
+              <ng-template #userErrorTpl let-control>
+                @if (control.errors?.['required']) { Please input your username!
+                } @if (control.errors?.['duplicated']) { The username is
+                redundant! }
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>Password :</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzErrorTip="Password should be at least 8 characters"
+            >
+              <nz-input-group>
+                <input
+                  minlength="8"
+                  type="password"
+                  nz-input
+                  formControlName="password"
+                  placeholder="Password"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>E-mail :</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzValidatingTip="Validating..."
+              [nzErrorTip]="emailErrorTpl"
+            >
+              <nz-input-group>
+                <input
+                  nz-input
+                  type="text"
+                  [value]="this.editForm.get('email')?.value"
+                  [disabled]="true"
+                />
+                <!-- <input
+                  nz-input
+                  formControlName="email"
+                  placeholder="E-mail"
+                  type="email"
+                /> -->
+              </nz-input-group>
+              <ng-template #emailErrorTpl let-control>
+                @if (control.errors?.['email']) { The input is not valid E-mail!
+                } @if (control.errors?.['required']) { Please input your E-mail!
+                } @if (control.errors?.['duplicated']) { The E-mail is
+                redundant! }
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>Address :</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzErrorTip="Please input your address!"
+            >
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="address"
+                  placeholder="Address"
+                  type="text"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>Company Name :</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzErrorTip="Please input your company name!"
+            >
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="companyName"
+                  placeholder="Company name"
+                  type="text"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>Select Business :</nz-form-label>
+            <nz-form-control nzErrorTip="Please select business!">
+              <nz-select
+                formControlName="businessId"
+                nzPlaceHolder="Select business"
+              >
+                <nz-option
+                  *ngFor="let list of businessList"
+                  [nzValue]="list.id"
+                  [nzLabel]="list.name"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>OneTime Commission :</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzErrorTip="Please input your OneTime commission!"
+            >
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="oneTimeCommission"
+                  placeholder="OneTime commission"
+                  type="number"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>Residual Percent :</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzErrorTip="Please input your Residual percent!"
+            >
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="residualPercent"
+                  placeholder="Residual percent"
+                  type="number"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>Short Code App :</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzErrorTip="Please input your Shortcode app!"
+            >
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="shortCodeApp"
+                  placeholder="Short code app"
+                  type="text"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="add_section_inputs">
+            <nz-form-label>Short Code Terminal :</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzErrorTip="Please input your Shortcode terminal!"
+            >
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="shortCodeTerminal"
+                  placeholder="Short code terminal"
+                  type="text"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <button
+            style="width: 100%"
+            nz-button
+            class="login-form-button login-form-margin"
+            [nzType]="'primary'"
+          >
+            <span>Update</span>
+            <ng-template #indicatorTemplate
+              ><span nz-icon nzType="loading"></span
+            ></ng-template>
+            <nz-spin
+              *ngIf="spinner"
+              nzSimple
+              [nzIndicator]="indicatorTemplate"
+            ></nz-spin>
+          </button>
+        </nz-card>
+      </form>
+    </nz-page-header-content>
+    <!-- -----------View Section------------- -->
+    <nz-page-header-content>
+      <nz-table
+        #nestedTable
+        nzBordered=""
+        [nzData]="existingUserData | pipe : searchKeyword"
+        [nzPageSize]="9"
+        nzSize="small"
+      >
+        <thead>
+          <tr>
+            <th></th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Username</th>
+            <th>E-mail</th>
+            <th>Address</th>
+            <th>CompanyName</th>
+            <!-- <th>Action</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <ng-template ngFor let-data [ngForOf]="nestedTable.data">
+            <tr>
+              <td [(nzExpand)]="data.expand"></td>
+              <td>{{ data.firstName | titlecase }}</td>
+              <td>{{ data.lastName | titlecase }}</td>
+              <td>{{ data.userName }}</td>
+              <td>{{ data.email }}</td>
+              <td>{{ data.address | titlecase }}</td>
+              <td>{{ data.companyName | uppercase }}</td>
+              <!-- <td>
+                <a>Publish</a>
+              </td> -->
+            </tr>
+            <tr [nzExpand]="data.expand">
+              <nz-table
+                #innerTable
+                [nzData]="data.userBizs"
+                nzSize="small"
+                [nzShowPagination]="false"
+              >
+                <thead>
+                  <tr>
+                    <th>Business Name</th>
+                    <th>OneTime Commission</th>
+                    <th>Residual Percent</th>
+                    <th>Short Code App</th>
+                    <th>Short Code Terminal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of innerTable.data">
+                    <td>{{ item.businessName }}</td>
+                    <td>{{ item.oneTimeCommission }}</td>
+                    <td>{{ item.residualPercent }}</td>
+                    <td>{{ item.shortCodeApp }}</td>
+                    <td>{{ item.shortCodeTerminal }}</td>
+                  </tr>
+                </tbody>
+              </nz-table>
+            </tr>
+          </ng-template>
+        </tbody>
+      </nz-table>
+    </nz-page-header-content>
+  </nz-page-header>
+</section>

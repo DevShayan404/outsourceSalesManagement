@@ -1,0 +1,243 @@
+<section>
+  <nz-page-header>
+    <nz-page-header-title>My Deals Entry</nz-page-header-title>
+    <nz-page-header-extra>
+      <nz-space>
+        <nz-input-group *nzSpaceItem [nzSuffix]="suffixIconSearch">
+          <input
+            [(ngModel)]="search"
+            type="text"
+            nz-input
+            placeholder="Search"
+          />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <span nz-icon nzType="search"></span>
+        </ng-template>
+        <button *nzSpaceItem nz-button (click)="addItemSection()">
+          Add Deal
+        </button>
+      </nz-space>
+    </nz-page-header-extra>
+    <nz-page-header-content *ngIf="activeAddItem">
+      <form [formGroup]="formData" (ngSubmit)="addDeal()">
+        <nz-card class="add_section">
+          <div class="add_section_inputs">
+            <label>Business Type</label>
+            <nz-select
+              nzShowSearch
+              nzAllowClear
+              formControlName="businessTypeId"
+              nzPlaceHolder="Select business"
+            >
+              <nz-option
+                *ngFor="let item of businessList"
+                [nzLabel]="item.name"
+                [nzValue]="item.id"
+              ></nz-option>
+            </nz-select>
+          </div>
+          <div class="add_section_inputs">
+            <label>Deal Type</label>
+            <nz-select
+              nzShowSearch
+              nzAllowClear
+              formControlName="posDealTypeId"
+              nzPlaceHolder="Select deal type"
+            >
+              <nz-option
+                *ngFor="let item of dealType"
+                [nzLabel]="item.name"
+                [nzValue]="item.id"
+              ></nz-option>
+            </nz-select>
+          </div>
+          <div class="add_section_inputs">
+            <label>Lease Company</label>
+            <nz-select
+              nzShowSearch
+              nzAllowClear
+              formControlName="leaseTypeId"
+              nzPlaceHolder="Select Lease company"
+            >
+              <nz-option
+                *ngFor="let item of leaseTypeList"
+                [nzLabel]="item.name"
+                [nzValue]="item.id"
+              ></nz-option>
+            </nz-select>
+          </div>
+          <div class="add_section_inputs">
+            <label>Business name</label>
+            <input
+              nz-input
+              placeholder="Business name"
+              type="text"
+              formControlName="businessName"
+            />
+          </div>
+          <textarea
+            style="width: 100%"
+            nz-input
+            placeholder="Enter Remarks here..."
+            [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+            formControlName="remarks"
+          ></textarea>
+          <button [disabled]="!formData.valid" nz-button style="width: 100%">
+            Submit
+          </button>
+        </nz-card>
+      </form>
+    </nz-page-header-content>
+    <nz-page-header-content>
+      <nz-table
+        class="table"
+        #editRowTable
+        nzBordered=""
+        [nzData]="DealOnWinList"
+        [nzPageSize]="9"
+        [nzPageIndex]="1"
+      >
+        <thead>
+          <tr>
+            <th>Deal Type</th>
+            <th>Pos Deal type</th>
+            <th>DBA</th>
+            <th>Remarks</th>
+            <th nzWidth="6%">Created on</th>
+            <th>Attached Ref no</th>
+            <th>Lease type</th>
+            <th nzWidth="4%" nzRight>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of editRowTable.data | pipe : search;
+              let srNo = index
+            "
+          >
+            <td>{{ item.dealType }}</td>
+            <td>{{ item.posDealType }}</td>
+            <td>{{ item.dba }}</td>
+            <td>{{ item.remarks }}</td>
+            <td>{{ item.createdOn | date }}</td>
+            <td>
+              <div *ngIf="item?.isEdit">
+                <input
+                  [value]="item.attachedRefNo"
+                  nz-input
+                  (change)="updateRefNo($event, item)"
+                  placeholder="Ref no"
+                  type="text"
+                />
+              </div>
+              <div *ngIf="!item?.isEdit">
+                {{ item.attachedRefNo }}
+              </div>
+            </td>
+            <td>{{ item.leaseType }}</td>
+            <td nzRight>
+              <div
+                *ngIf="!item?.isEdit"
+                nz-space
+                nzAlign="center"
+                [nzSplit]="spaceSplit"
+                class="space-align-block"
+              >
+                <ng-template #spaceSplit>
+                  <nz-divider nzType="vertical"></nz-divider>
+                </ng-template>
+                <span
+                  (click)="editRefNo(item)"
+                  class="edit_icon"
+                  *nzSpaceItem
+                  nz-icon
+                  nzType="edit"
+                  nzTheme="outline"
+                ></span>
+                <span
+                  (click)="showModal(item)"
+                  class="attach_icon"
+                  *nzSpaceItem
+                  nz-icon
+                  nzType="upload"
+                  nzTheme="outline"
+                ></span>
+              </div>
+              <div
+                *ngIf="item?.isEdit"
+                nz-space
+                nzAlign="center"
+                [nzSplit]="spaceSplit"
+                class="space-align-block"
+              >
+                <ng-template #spaceSplit>
+                  <nz-divider nzType="vertical"></nz-divider>
+                </ng-template>
+                <span
+                  (click)="updateDealOnWin(item)"
+                  class="check_icon"
+                  *nzSpaceItem
+                  nz-icon
+                  nzType="check"
+                  nzTheme="outline"
+                ></span>
+                <span
+                  (click)="closeIcon(item)"
+                  class="close_icon"
+                  *nzSpaceItem
+                  nz-icon
+                  nzType="close"
+                  nzTheme="outline"
+                ></span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-page-header-content>
+  </nz-page-header>
+</section>
+<!-- ///////////////// Modal/////////////////////// -->
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Attachment"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <div class="ModalBody">
+      <input #inputFile (change)="onFileChange($event)" type="file" />
+      <button (click)="SubmitAttach()" nz-button style="width: 100%">
+        Submit
+      </button>
+    </div>
+    <div style="margin-top: 10px">
+      <nz-table nzBordered="" #basicTable [nzData]="AllAttachmentList">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Attachments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <a
+                style="margin-left: 20px"
+                [href]="
+                  'http://172.16.100.111:5200/files/' + data.physicalFileName
+                "
+                target="_blank"
+                rel="noopener noreferrer"
+                ><span nz-icon nzType="cloud-download" nzTheme="outline"></span
+              ></a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </ng-container>
+</nz-modal>

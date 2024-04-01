@@ -1,0 +1,61 @@
+<main>
+  <!----------------------Navbar----------------------->
+  <nav>
+    <div class="nav_left">
+      <span
+        class="trigger"
+        nz-icon
+        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"
+      ></span>
+      <h1>
+        HELLO, {{ this.decode?.given_name | titlecase }}
+        {{ this.decode?.family_name | titlecase }}
+      </h1>
+    </div>
+    <div class="nav_right">
+      <nz-avatar
+        nzIcon="user"
+        nzSize="large"
+        style="background-color: var(--primary-color)"
+      ></nz-avatar>
+    </div>
+  </nav>
+  <nz-layout>
+    <!----------------------Sidebar----------------------->
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <ul nz-menu nzMode="inline">
+        <li
+          nz-menu-item
+          routerLink="add-user"
+          [nzSelected]="selectedRoute.includes('add-user')"
+        >
+          <span nz-icon nzType="user"></span>
+          <span>User</span>
+        </li>
+        <li
+          nz-menu-item
+          routerLink="my-deals"
+          [nzSelected]="selectedRoute.includes('my-deals')"
+        >
+          <span nz-icon nzType="tags"></span>
+          <span>My Deals</span>
+        </li>
+      </ul>
+      <!-- ---------------------Logout Button----------------------- -->
+
+      <ul nz-menu nzMode="inline" class="logout">
+        <li nz-menu-item (click)="logout()">
+          <span nz-icon nzType="logout"></span>
+          <span>Logout</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <!----------------------Body----------------------->
+    <nz-layout>
+      <nz-content>
+        <div class="inner-content"><router-outlet></router-outlet></div>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</main>

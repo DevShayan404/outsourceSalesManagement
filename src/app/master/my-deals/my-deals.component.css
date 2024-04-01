@@ -1,0 +1,134 @@
+.ant-page-header {
+    padding: 0;
+  }
+  .ant-page-header-heading-title {
+    font-size: 26px;
+  }
+  .ant-tag-blue {
+    color: var(--secondary-color);
+  }
+
+  .ant-btn {
+    color: #fff;
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  .ant-btn:hover,
+  .ant-btn:focus {
+    color: #fff;
+  
+    border-color: var(--secondary-color);
+    background: var(--secondary-color);
+  }
+  .edit_icon {
+    color: #1890ff;
+    cursor: pointer;
+  }
+  .attach_icon{
+    color: black;
+  cursor: pointer;  
+  }
+
+  .check_icon{
+    color: green;
+    cursor: pointer;  
+  }
+  .close_icon{
+    color: red;
+    cursor: pointer;
+  }
+
+  ::ng-deep.ant-table-thead > tr > th {
+    /* padding: 10px 14px; */
+    font-weight: 600;
+  }
+  ::ng-deep.ant-table-tbody > tr > td {
+    /* padding: 8px 14px; */
+  }
+  ::ng-deep.ant-table-pagination.ant-pagination {
+    margin: 16px 0 0 0;
+  }
+  ::ng-deep.ant-pagination-item-active {
+    border-color: var(--primary-color);
+  }
+  ::ng-deep.ant-pagination-item-active a {
+    color: var(--primary-color);
+  }
+  ::ng-deep.ant-pagination-item:hover {
+    border-color: var(--primary-color);
+  }
+  ::ng-deep.ant-pagination-item a:hover {
+    color: var(--primary-color);
+  }
+  ::ng-deep.ant-pagination-prev:hover .ant-pagination-item-link,
+  ::ng-deep.ant-pagination-next:hover .ant-pagination-item-link {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  .add_item_section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  /* ----------------add_section-------------------- */
+  .add_section ::ng-deep.ant-card-body {
+    width: 100%;
+    display: flex;
+    align-items: start;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  .add_section ::ng-deep.ant-card-body::before {
+    display: none;
+  }
+  .add_section_inputs {
+    flex: 0 1 calc(25% - 15px);
+    display: flex;
+    flex-direction: column;
+  }
+  .add_section ::-webkit-scrollbar {
+    display: none;
+  }
+  .ant-upload-picture-card-wrapper {
+    display: flex;
+    width: 100%;
+  }
+  .add_section ::ng-deep.ant-upload-list-picture-card-container {
+    display: inline-block;
+    width: 76px;
+    height: 76px;
+    margin: 0 8px 8px 0;
+    border-radius: 0.2rem;
+    overflow: hidden;
+    vertical-align: top;
+  }
+  .add_section ::ng-deep.ant-upload.ant-upload-select-picture-card {
+    width: 76px;
+    height: 76px;
+  }
+  .uploadIcon{
+ text-align: center;
+  }
+
+  .uploadIcon span:hover{
+    cursor: pointer;
+    color: rgb(106, 172, 8);
+  }
+.uploadIcon span > input
+{
+    display: none;
+}
+
+.ModalBody{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ModalBody input{
+  width: 100%;
+  border-style:inset;
+  padding: 5px;
+  border-radius: 5px;
+}

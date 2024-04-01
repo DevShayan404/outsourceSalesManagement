@@ -1,0 +1,64 @@
+section {
+  position: relative;
+}
+/* <!-- ------------------Login-------------------- --> */
+.bg_img {
+  background-image: url("../../../assets/img/login_bg.jpg");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  filter: blur(1.5px);
+  -webkit-filter: blur(1.5px);
+}
+.login_div {
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  transform: translate(-15%, -50%);
+  z-index: 1;
+  min-width: 40%;
+  max-width: 40%;
+  background: #ffffff33;
+  border-radius: 0.1rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.login-form {
+  max-width: 100%;
+  padding: 20px;
+}
+.login-form h1 {
+  color: #fff;
+  line-height: 45px;
+  font-weight: 700;
+  font-size: var(--heading-font);
+  margin-bottom: 5px;
+}
+.login-form p {
+  margin-bottom: 30px;
+  color: var(--secondary-light);
+}
+
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+  border-color: var(--secondary-color);
+  background: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.ant-checkbox-wrapper {
+  color: var(--secondary-light);
+}
+.login-form::ng-deep.ant-spin {
+  color: #fff;
+}

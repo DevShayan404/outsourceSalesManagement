@@ -1,0 +1,122 @@
+.ant-page-header {
+  padding: 0;
+}
+.ant-page-header-heading-title {
+  font-size: 26px;
+}
+.ant-tag-blue {
+  color: var(--secondary-color);
+}
+.ant-btn {
+  color: #fff;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.ant-btn:hover,
+.ant-btn:focus {
+  color: #fff;
+
+  border-color: var(--secondary-color);
+  background: var(--secondary-color);
+}
+.edit_icon {
+  color: #1890ff;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+}
+.dlt_icon {
+  color: #dc071b;
+  cursor: pointer;
+}
+::ng-deep.ant-table-thead > tr > th {
+  /* padding: 10px 14px; */
+  font-weight: 600;
+}
+::ng-deep.ant-table-tbody > tr > td {
+  /* padding: 8px 14px; */
+}
+::ng-deep.ant-table-pagination.ant-pagination {
+  margin: 16px 0 0 0;
+}
+::ng-deep.ant-pagination-item-active {
+  border-color: var(--primary-color);
+}
+::ng-deep.ant-pagination-item-active a {
+  color: var(--primary-color);
+}
+::ng-deep.ant-pagination-item:hover {
+  border-color: var(--primary-color);
+}
+::ng-deep.ant-pagination-item a:hover {
+  color: var(--primary-color);
+}
+::ng-deep.ant-pagination-prev:hover .ant-pagination-item-link,
+::ng-deep.ant-pagination-next:hover .ant-pagination-item-link {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.add_item_section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ----------------add_section-------------------- */
+.add_section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+::ng-deep.ant-card-body::before {
+  display: none;
+}
+.add_section_inputs {
+  flex: 0 1 calc(33.33% - 15px);
+  margin-right: 15px;
+}
+.add_section_dual_inputs {
+  flex: 0 1 calc(50% - 15px);
+  margin-right: 15px;
+}
+.add_section ::-webkit-scrollbar {
+  display: none;
+}
+.add_section ::ng-deep.ant-form-item-label > label {
+  color: #5a5a5a;
+}
+::ng-deep.ant-form-vertical .ant-form-item-label {
+  padding: 0 0 4px;
+}
+.add_business_button {
+  border: 2px solid var(--secondary-color);
+  color: var(--primary-color);
+  background: transparent;
+  border-radius: 0.2rem;
+  padding: 2px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+.add_business_button:hover {
+  background: rgba(108, 214, 250, 0.22);
+}
+.login-form-button {
+  width: 100%;
+  border-color: var(--secondary-color);
+  background: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.ant-checkbox-wrapper {
+  color: var(--secondary-light);
+}
+.ant-btn .anticon {
+  color: #fff;
+}

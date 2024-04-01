@@ -1,0 +1,79 @@
+<section>
+  <div class="bg_img"></div>
+  <div class="login_div">
+    <form
+      nz-form
+      [formGroup]="validateForm"
+      class="login-form"
+      (ngSubmit)="submitForm()"
+    >
+      <h1>
+        WELCOME TO! <br />
+        Outsource
+        <ngx-typed-writer
+          [strings]="[' Sales Managemant']"
+          [showCursor]="false"
+          [typeSpeed]="90"
+          [loop]="false"
+          [fadeOut]="true"
+          [fadeOutDelay]="200"
+        >
+        </ngx-typed-writer>
+      </h1>
+
+      <p>
+        Streamline your sales strategy with our expert outsourcing solutions,
+        maximizing efficiency and revenue potential.
+      </p>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your username!">
+          <nz-input-group nzPrefixIcon="user">
+            <input
+              type="text"
+              nz-input
+              formControlName="userName"
+              placeholder="Username"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input
+              type="password"
+              nz-input
+              formControlName="password"
+              placeholder="Password"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row class="login-form-margin">
+        <div nz-col [nzSpan]="12">
+          <label nz-checkbox formControlName="remember">
+            <span>Remember me</span>
+          </label>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <a class="login-form-forgot">Forgot password</a>
+        </div>
+      </div>
+      <button
+        nz-button
+        class="login-form-button login-form-margin"
+        [nzType]="'primary'"
+      >
+        Log in
+        <ng-template #indicatorTemplate
+          ><span nz-icon nzType="loading"></span
+        ></ng-template>
+        <nz-spin
+          *ngIf="spinner"
+          nzSimple
+          [nzIndicator]="indicatorTemplate"
+        ></nz-spin>
+      </button>
+    </form>
+  </div>
+</section>
